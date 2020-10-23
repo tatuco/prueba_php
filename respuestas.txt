@@ -1,0 +1,44 @@
+22-10-2020 18:24 Hora Colombia
+
+1. Teoricos:
+    1.1. En qué se diferencia el método POST del método GET ?
+        El metodo POST por convencion, se usa para el envio de informacion del lado del cliente hacia el servidor, 
+        y el GET se usa para solicitar informacion al servidor. Ambos metodos tienen el mismo comportamiento a nivel de funcionalidad con ciertas limitaciones que presenta el GET,
+        podriamos enviar informacion al servidor usando un metodo GET, y solicitar informacion con un metodo POST,
+        pero a nivel de API REST se manejan ciertas convenciones, reglas, y ademas buenas practicas, las cuales dictan que para el envio de informacion 
+        se debe usar un metodo POST o PUT (en caso de que se esten enviando datos, para hacer una actualizacion sobre un registro).
+        Estos dos metodos HTTP envian las variables, en forma de mapa o diccionario en el cuerpo de la peticion hacia el servidor, 
+        por lo cual no son visibles para el cliente, si se envia informacion con un metodo GET, estas variables viajan al servidor directamente en la url de la peticion,
+        y por ende se pueden ver los valores de esas variable que se estan enviando.
+        El metodo GET no permite, enviar Binarios, como imagenes, archivos y ademas tiene un limite de caracteres para enviar en la url,
+        a diferencia del POST que no tiene estas limitaciones, en conclusion, el metodo GET esta pensado, para pedir informacion al servidor, con la capacidad de enviar variables
+        en la url de la peticion, las cuales pueden ser usadas, para condicionar esta peticion (estas deben estar disponibles en el servidor, para que este 
+        modifique su respuesta en base a estos parametros enviados en la peticion) y el POST esta orientado, al envio de informacion al servidor, la cual va a ser persistida en 
+        una Base de Datos
+
+    1.2. Cuál es la ventaja de utilizar Ajax?
+        Ajax es utilizado por su capacidad de hacer una peticion al servidor, sin recargar la pagina, estas peticiones se pueden trabajar sincrona o asincronamente con una bandera que se le envia
+        al objeto, tiene metodos para capturar el success o el error de la peticion, y hacer acciones en base a esas respuestas. como mostrar un mensaje al usuario que informe sobre el resultado
+        de esa peticion o accion. Un caso de uso para usar ajax, puede ser, validar el valor de un input, para verificar que este sea un email valido, enviandolo a un api de validacion de correos
+        entonces agregando un evento onkeydown a la etiqueta input que queremos evaluar, y este evento invoca una funcion que, espera unos segundos, y luego hace una peticion ajax,
+        enviando el correo a validar, espera la respuesta y muestra un mensaje de exito o error, la peticion se hace por debajo y la pagina no se recarga, y el usuario continua su registro con normalidad
+
+    1.3. Cuál es la diferencia entre WebSockets y Ajax?
+        La diferencia es que Ajax solo hace una peticion al servidor y ya, es decir mantiene una comunicacion unidireccional con el servidor, el cliente hace una solicitud,
+        y el recurso del servidor le responde la data, a diferencia que con webSocket se crea una conexion bidireccional, donde el servidor, puede emitir eventos
+        y el cliente mostrar una notificacion, modificar un grafico, mover maker en un mapa, o devolver un mensaje de otro usuario, y a su vez el cliente, puede emitir un evento
+        al servidor por medio del cliente socket, webSocket tiene dos caras, la del cliente que corre en el navegador, y la del servidor, que puede estar amarrada a un api o un servidor socket
+        independiente. en conclucion la diferencia la capacidad de comunicacion que sostiene el socket de manera bidireccional entre cliente <-> servidor, ajax es solo cliente -> servidor.
+
+    1.4. Cuál es la diferencia entre un método estático y uno no estático?
+        Un metodo estatico, es un metodo que pertenece a la clase como tal, no a la instancia u objeto de la misma, si queremos acceder a un metodo estatico de una clase, 
+        no tenemos que instanciar la clase, solo la llamamos a traves de la clase, en PHP se llaman con :: CLASE::MetodoEstatico a diferencia de un metodo de instancia
+        con el que tendriamos que hacer algo como (new Clase())->metodo() estos metodos, entendiendolo de esta manera, y separando la clase de la instancia, los metodos estaticos, 
+        no tiene control sobre las propiedades o metodos de instancia, solo sobre  metodos y propiedades estaticas, porque la instancia no existe en el metodo estatico, porque no se a instanciado
+        y por ende no existe el objeto, un metodo de instancia, si puede usar un metodo o propiedad estatica, en su declaracion claro.
+
+
+4. MySQL:
+    SELECT p.id, p.nombre, p.direccion, v.id AS vehiculoid, v.propietarioid, v.color
+        FROM propietario AS p
+        JOIN vehiculo v on p.id = v.propietarioid
